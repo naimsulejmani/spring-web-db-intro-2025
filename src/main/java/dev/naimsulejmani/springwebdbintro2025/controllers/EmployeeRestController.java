@@ -22,8 +22,11 @@ public class EmployeeRestController {
     }
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
+    public List<Employee> getAllEmployees(@RequestParam(required = false) String department) {
         //SELECT * FROM employees;
+        if (department != null) {
+            return employeeRepository.findAllByDepartment(department);
+        }
         return employeeRepository.findAll();
     }
 
